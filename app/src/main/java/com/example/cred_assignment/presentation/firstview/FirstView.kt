@@ -22,9 +22,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cred_assignment.data.datasource.api.entity.Content
-import com.example.cred_assignment.domain.models.ContentModel
 import com.example.cred_assignment.domain.models.FirstViewContent
+import com.example.cred_assignment.presentation.util.CustomCircularSlider
 
 @Composable
 fun FirstView(
@@ -35,6 +34,12 @@ fun FirstView(
 ) {
     Column(
         modifier = Modifier
+            .clip(
+                shape = RoundedCornerShape(
+                    30.dp, 30.dp, 0.dp, 0.dp
+                )
+            )
+            .background(Color.LightGray.copy(alpha = 0.5f))
             .padding(paddingValues)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceBetween,

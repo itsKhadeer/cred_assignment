@@ -1,4 +1,4 @@
-package com.example.cred_assignment.presentation
+package com.example.cred_assignment.presentation.util
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

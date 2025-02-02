@@ -6,5 +6,5 @@ data class StackItem(
     val id: Int,
     val content: @Composable () -> Unit,
     val collapsedContent: @Composable () -> Unit,
-    val dragHandlerContent: @Composable () -> Unit = {}
+    val callToActionContent: @Composable () -> Unit = {}
 )

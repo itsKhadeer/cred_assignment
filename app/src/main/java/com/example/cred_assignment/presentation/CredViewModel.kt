@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cred_assignment.data.datasource.NetworkResult
 import com.example.cred_assignment.domain.repository.CredRepository
+import com.example.cred_assignment.presentation.util.CredUIState
 import com.example.stack_frame_work.StackState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package com.example.cred_assignment.presentation
+package com.example.cred_assignment.presentation.util
 
 import com.example.cred_assignment.domain.models.ContentModel
 

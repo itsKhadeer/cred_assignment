@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 fun StackFramework(
     items: List<StackItem>,
     modifier: Modifier = Modifier,
-    stackState: StackState = remember { StackState() },
+    stackState: StackState,
+    startCtaContent: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
     // Validate the number of items
@@ -37,7 +38,7 @@ fun StackFramework(
                     if (stackState.expandedIndex != 0) {
                         stackState.toggleExpanded(stackState.expandedIndex!!.minus(1))
                     } else if (stackState.expandedIndex!! == 0) {
-                        stackState.toggleExpanded(0)
+                        stackState.toggleExpanded(null)
                     }
 
                 },
@@ -46,6 +47,18 @@ fun StackFramework(
             content()
         }
 
+        if(stackState.expandedIndex == null) {
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        stackState.toggleExpanded(0)
+                    },
+                contentAlignment = Alignment.Center
+                ) {
+                startCtaContent()
+            }
+        }
         Column(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Bottom,
@@ -56,10 +69,8 @@ fun StackFramework(
                     item = item,
                     isVisible = isVisible(stackState.expandedIndex, index),
                     isExpanded = isExpanded(stackState.expandedIndex, index),
-                    isDragHandlerVisible = isDragHandlerVisible(stackState.expandedIndex, index),
-                    onToggle = { stackState.toggleExpanded(index) },
+                    onToggle = { stackState.toggleExpanded(index+it) },
                     modifier = modifier
-
                 )
             }
         }
@@ -73,18 +84,11 @@ fun isExpanded(currentIndex: Int?, index: Int): Boolean {
 
 fun isVisible(currentIndex: Int?, index: Int): Boolean {
     if (currentIndex == null) {
-        return index == 0
+        return false
     }
     if (currentIndex == 0 && index == 0) return true
-    if (currentIndex + 1 >= index) {
+    if (currentIndex >= index) {
         return true
     }
     return false
-}
-
-fun isDragHandlerVisible(expandedIndex: Int?, index: Int): Boolean {
-    if (expandedIndex == null) {
-        return false
-    }
-    return expandedIndex > index
 }

@@ -2,7 +2,6 @@ package com.example.cred_assignment.presentation.thirdview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,28 +18,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.cred_assignment.data.datasource.api.entity.Content
-import com.example.cred_assignment.domain.models.ContentModel
-import com.example.cred_assignment.domain.models.SecondViewContent
 import com.example.cred_assignment.domain.models.ThirdViewContent
 import io.ktor.util.toUpperCasePreservingASCIIRules
 
 @Composable
-fun ThirdViewDragHandler(
-    content: SecondViewContent,
-    plan: Int
+fun ThirdViewCollapsedContent(
+    content: ThirdViewContent,
+    bank: Int
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(Color.LightGray.copy(alpha = 0.5f))
+            .background(Color.LightGray.copy(alpha = 0.9f))
             .clip(
                 RoundedCornerShape(
                     30.dp, 30.dp, 0.dp, 0.dp
                 )
             )
-            .background(Color.LightGray.copy(alpha = 0.8f))
+            .background(Color.Gray.copy(alpha = 0.3f))
 
             .padding(20.dp),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -51,25 +48,26 @@ fun ThirdViewDragHandler(
             modifier = Modifier.fillMaxWidth(0.7f)
 
         ) {
-            Column {
-                Text(text = content.closedState.key1.toUpperCasePreservingASCIIRules())
-                Text(
-                    text = content.openState.items[plan].emi,
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
-            Column {
-                Text(text = content.closedState.key2)
-                Text(
-                    text = content.openState.items[plan].duration,
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
+            content.openState.items[bank].title.toUpperCasePreservingASCIIRules()
+                .let {
+                    Text(
+                        text = it
+                    )
+                }
+            content.openState.items[bank].subtitle.toUpperCasePreservingASCIIRules()
+                .let {
+                    Text(
+                        text = it,
+                        modifier = Modifier.wrapContentWidth()
+                    )
+                }
         }
+
         Icon(
             imageVector = Icons.Default.KeyboardArrowDown,
             contentDescription = "cancel",
             modifier = Modifier.padding(5.dp)
         )
     }
+
 }
