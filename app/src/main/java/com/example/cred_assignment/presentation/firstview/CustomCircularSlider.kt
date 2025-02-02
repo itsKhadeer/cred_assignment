@@ -1,4 +1,4 @@
-package com.example.cred_assignment.firstview
+package com.example.cred_assignment.presentation.firstview
 
 import android.util.Log
 import androidx.compose.foundation.Canvas

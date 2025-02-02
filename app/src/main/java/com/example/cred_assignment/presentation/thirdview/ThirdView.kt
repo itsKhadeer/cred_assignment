@@ -1,4 +1,4 @@
-package com.example.cred_assignment.thirdview
+package com.example.cred_assignment.presentation.thirdview
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,19 +28,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cred_assignment.R
-import com.example.cred_assignment.models.Content
+import com.example.cred_assignment.domain.models.ThirdViewContent
 
 @Composable
-fun ThirdView(content: Content, changeBank: (Int) -> Unit, bank: Int) {
+fun ThirdView(content: ThirdViewContent, changeBank: (Int) -> Unit, bank: Int) {
     Column(
         modifier = Modifier
+            .background(Color.LightGray.copy(alpha = 0.9f))
             .fillMaxHeight(0.64f)
             .fillMaxWidth()
-            .background(Color(0xFF171E27))
             .clip(
                 shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp)
-            )
-            .background(color = Color(0xFF1B232C)),
+            ),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -50,16 +49,16 @@ fun ThirdView(content: Content, changeBank: (Int) -> Unit, bank: Int) {
                 .padding(top = 30.dp, start = 20.dp)
         ) {
             Text(
-                text = content.items[2].openState.body.title,
+                text = content.openState.title,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = content.items[2].openState.body.subtitle,
+                text = content.openState.subtitle,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 14.sp,
-                color = Color.Gray.copy(0.5f)
+                color = Color.Black.copy(0.5f)
             )
             Spacer(modifier = Modifier.height(20.dp))
             //chip
@@ -68,7 +67,7 @@ fun ThirdView(content: Content, changeBank: (Int) -> Unit, bank: Int) {
                     .fillMaxWidth()
                     .fillMaxHeight(0.6f)
             ) {
-                content.items[2].openState.body.items?.let { banks ->
+                content.openState.items.let { banks ->
                     items(banks.size) { it ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -84,33 +83,34 @@ fun ThirdView(content: Content, changeBank: (Int) -> Unit, bank: Int) {
                                 Column(verticalArrangement = Arrangement.Center) {
                                     Text(text = banks[it].title)
                                     Text(
-                                        text = banks[it].subtitle!!, color = Color.Gray.copy(0.5f)
+                                        text = banks[it].subtitle, color = Color.Black.copy(0.5f)
                                     )
                                 }
                             }
                             Checkbox(
                                 it == bank,
                                 onCheckedChange = { _ -> changeBank(it) },
+                                colors = CheckboxDefaults.colors().copy(
+                                    checkedCheckmarkColor = Color.Black,
+                                    checkedBoxColor = Color.White,
+                                    checkedBorderColor = Color.Gray,
+                                    uncheckedBorderColor = Color.Black,
+                                )
                             )
                         }
                     }
                 }
             }
-            OutlinedButton(onClick = {}) {
-                Text(text = content.items[2].openState.body.footer)
+            Spacer(Modifier.height(10.dp))
+            OutlinedButton(
+                onClick = {},
+                colors = ButtonDefaults.outlinedButtonColors().copy(
+                    contentColor = Color.Black,
+                    containerColor = Color.White
+                )
+            ) {
+                Text(text = content.openState.footer)
             }
-        }
-        Button(
-            onClick = { },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(65.dp),
-            shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp),
-            colors = ButtonDefaults.buttonColors().copy(
-                containerColor = Color(0xFF37439C), contentColor = Color.White
-            )
-        ) {
-            Text(text = content.items[2].ctaText)
         }
     }
 }

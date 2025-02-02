@@ -1,4 +1,4 @@
-package com.example.cred_assignment.firstview
+package com.example.cred_assignment.presentation.firstview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,20 +22,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cred_assignment.models.Content
+import com.example.cred_assignment.data.datasource.api.entity.Content
+import com.example.cred_assignment.domain.models.ContentModel
+import com.example.cred_assignment.domain.models.FirstViewContent
 
 @Composable
 fun FirstView(
     paddingValues: PaddingValues,
-    content: Content,
-    changeBottomSheet1: () -> Unit,
+    content: FirstViewContent,
     changeAmount: (Int) -> Unit,
     amount: Int
 ) {
     Column(
         modifier = Modifier
             .padding(paddingValues)
-            .fillMaxSize(),
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -48,12 +46,12 @@ fun FirstView(
             Modifier.padding(20.dp)
         ) {
             Text(
-                content.items[0].openState.body.title,
+                content.openState.title,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.W300
             )
             Text(
-                content.items[0].openState.body.subtitle,
+                content.openState.subtitle,
                 fontSize = 14.sp,
                 color = Color.Gray.copy(0.9f)
             )
@@ -73,8 +71,8 @@ fun FirstView(
                 ) {
                     CustomCircularSlider(
                         changeAmount = { changeAmount(it) },
-                        maxValue = content.items[0].openState.body.card?.maxRange!!,
-                        minValue = content.items[0].openState.body.card?.minRange!!,
+                        maxValue = content.openState.card.maxRange,
+                        minValue = content.openState.card.minRange,
                     )
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -82,7 +80,7 @@ fun FirstView(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = content.items[0].openState.body.card?.header!!,
+                            text = content.openState.card.header,
                             color = Color.Gray
                         )
                         Text(
@@ -95,32 +93,18 @@ fun FirstView(
                         Spacer(Modifier.height(10.dp))
                         Text(
                             color = Color.Green.copy(green = 0.8f),
-                            text = content.items[0].openState.body.card?.description!!
+                            text = content.openState.card.description
                         )
                     }
                 }
                 Spacer(Modifier.height(10.dp))
                 Text(
-                    text = content.items[0].openState.body.footer,
+                    text = content.openState.footer,
                     textAlign = TextAlign.Center,
                     color = Color.Gray.copy(0.7f),
                     fontSize = 14.sp
                 )
             }
         }
-
-        Button(
-            onClick = { changeBottomSheet1() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(65.dp),
-            shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp),
-            colors = ButtonDefaults.buttonColors().copy(
-                containerColor = Color(0xFF37439C), contentColor = Color.White
-            )
-        ) {
-            Text(text = content.items[0].ctaText)
-        }
-
     }
 }

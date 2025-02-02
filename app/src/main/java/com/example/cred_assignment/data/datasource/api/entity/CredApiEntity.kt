@@ -1,13 +1,7 @@
-package com.example.cred_assignment.models
+package com.example.cred_assignment.data.datasource.api.entity
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 data class Content(

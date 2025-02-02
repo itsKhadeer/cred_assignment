@@ -4,61 +4,91 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.cred_assignment.firstview.FirstView
-import com.example.cred_assignment.models.Content
-import com.example.cred_assignment.secondview.SecondView
-import com.example.cred_assignment.secondview.SecondViewDragHandler
-import com.example.cred_assignment.thirdview.ThirdView
-import com.example.cred_assignment.thirdview.ThirdViewDragHandler
-import com.example.cred_assignment.ui.theme.Cred_assignmentTheme
-import com.example.cred_assignment.viewmodel.MainViewModel
-import com.example.cred_assignment.viewmodel.UiState
+import com.example.cred_assignment.domain.models.ThirdViewContent
+import com.example.cred_assignment.presentation.MainScreen
+import com.example.cred_assignment.presentation.ui.theme.Cred_assignmentTheme
+import io.ktor.util.toUpperCasePreservingASCIIRules
 
 class MainActivity : ComponentActivity() {
-
-    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContent {
             Cred_assignmentTheme {
-                MainScreen(viewModel)
+                MainScreen()
             }
         }
     }
 }
 
 
+
+@Composable
+fun FourthViewDragHandler(
+    content: ThirdViewContent,
+    bank: Int
+) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(Color.LightGray.copy(alpha = 0.9f))
+            .clip(
+                RoundedCornerShape(
+                    30.dp, 30.dp, 0.dp, 0.dp
+                )
+            )
+            .background(Color.Gray.copy(alpha = 0.3f))
+
+            .padding(20.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(0.7f)
+
+        ) {
+            content.openState.items[bank].title.toUpperCasePreservingASCIIRules()
+                .let {
+                    Text(
+                        text = it
+                    )
+                }
+            content.openState.items[bank].subtitle.toUpperCasePreservingASCIIRules()
+                .let {
+                    Text(
+                        text = it,
+                        modifier = Modifier.wrapContentWidth()
+                    )
+                }
+        }
+
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowDown,
+            contentDescription = "cancel",
+            modifier = Modifier.padding(5.dp)
+        )
+    }
+
+}
