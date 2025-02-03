@@ -22,10 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import com.example.cred_assignment.domain.models.ThirdViewContent
 import com.example.cred_assignment.presentation.MainScreen
 import com.example.cred_assignment.presentation.ui.theme.Cred_assignmentTheme
 import io.ktor.util.toUpperCasePreservingASCIIRules
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 

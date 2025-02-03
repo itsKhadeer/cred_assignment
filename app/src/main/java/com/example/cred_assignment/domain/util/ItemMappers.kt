@@ -14,7 +14,6 @@ fun Content.toContentModelDomain(): ContentModel {
         thirdViewContent = items[2].toThirdViewDomain()
     )
 }
-// --- First View Mapper ---
 
 fun Item.toFirstViewDomain(): FirstViewContent {
     return FirstViewContent(
@@ -31,7 +30,6 @@ fun Item.toFirstViewDomain(): FirstViewContent {
     )
 }
 
-// --- Second View Mapper ---
 
 fun Item.toSecondViewDomain(): SecondViewContent {
     return SecondViewContent(
@@ -49,7 +47,6 @@ fun Item.toSecondViewDomain(): SecondViewContent {
     )
 }
 
-// --- Third View Mapper ---
 
 fun Item.toThirdViewDomain(): ThirdViewContent {
     return ThirdViewContent(
@@ -64,7 +61,6 @@ fun Item.toThirdViewDomain(): ThirdViewContent {
     )
 }
 
-// --- Shared Mapper Functions ---
 
 fun Card.toDomain(): CardData {
     return CardData(

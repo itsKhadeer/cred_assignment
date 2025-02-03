@@ -50,7 +50,6 @@ fun StackFrameworkExample(content: ContentModel, viewModel: CredViewModel = koin
             StackItem(
                 id = 1,
                 callToActionContent = {
-
                     //Proceed to EMI Selection
                     Text(
                         textAlign = TextAlign.Center,
@@ -123,7 +122,7 @@ fun StackFrameworkExample(content: ContentModel, viewModel: CredViewModel = koin
                         text = content.thirdViewContent.cta,
                         modifier = Modifier
                             .clickable {
-                                val url = "https://cred.club/"
+                                val url = "https://cred.club/neopop"
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                                 context.startActivity(intent)
                             }
@@ -168,7 +167,6 @@ fun StackFrameworkExample(content: ContentModel, viewModel: CredViewModel = koin
                     .padding(20.dp),
                 color = Color.White
             )
-
         },
         stackState = stackState
     ) {

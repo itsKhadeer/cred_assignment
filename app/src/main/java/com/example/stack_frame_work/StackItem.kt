@@ -35,7 +35,6 @@ fun StackItem(
                 .fillMaxWidth()
         ) {
 
-            // Show drag handler content if conditions are met, otherwise show collapsed content
             AnimatedVisibility(
                 visible = !isExpanded,
                 enter = fadeIn() + expandVertically(),
@@ -45,7 +44,6 @@ fun StackItem(
                 item.collapsedContent()
             }
 
-            // Show expanded content with animation when expanded
             AnimatedVisibility(
                 visible = isExpanded,
                 enter = expandVertically(),

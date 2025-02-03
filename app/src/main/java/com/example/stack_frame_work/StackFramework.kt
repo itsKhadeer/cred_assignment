@@ -19,7 +19,6 @@ fun StackFramework(
     startCtaContent: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
-    // Validate the number of items
     require(items.size in 2..4) {
         "Stack framework must contain between 2 and 4 items. Current size: ${items.size}"
     }
